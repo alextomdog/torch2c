@@ -1,5 +1,4 @@
-from modelParser import ModelParser
-import torch
+from modelParser import generate_file_cnn1d_checkpoint
 from torch import nn
 
 
@@ -29,15 +28,10 @@ conv1d_model = Conv1D()
 in_channels = 2
 batch_size = 2
 sequence_length = 4
-input_ = torch.randn(batch_size, in_channels, sequence_length)
-output = conv1d_model(input_)
-print(output)
 
-parser = ModelParser(forward_variable_name="result",
-                     c_language_filepath="./functions.c")
-
-parser.config_conv1d_neral_network(batch_size, in_channels, sequence_length)
-
-parser.parse_network(conv1d_model)
-
-parser.save_code("test_conv1d0.c", input_, output)
+generate_file_cnn1d_checkpoint(
+    batch_size,
+    in_channels,
+    sequence_length,
+    conv1d_model
+)

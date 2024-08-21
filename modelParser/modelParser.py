@@ -128,16 +128,23 @@ class ModelParser:
 
         return True
 
-    def save_code(self, filename="model.c",
+    def save_code(self,
+                  filename="model",
                   prepared_input_to_model_for_generate__main__: torch.Tensor | None = None,
                   gotten_output_from_model_for_generate__main__: torch.Tensor | None = None):
         self.__check_configuration()
 
+        body_filename = filename + ".c"
+        header_filename = filename + ".h"
+
         coding = self.get_code(prepared_input_to_model_for_generate__main__,
                                gotten_output_from_model_for_generate__main__)
 
-        with open(filename, "w", encoding="utf-8") as f:
+        with open(body_filename, "w", encoding="utf-8") as f:
             f.write(coding)
+
+        with open(header_filename, "w", encoding="utf-8") as f:
+            f.write(self.get_header_code(filename))
 
     def get_code(self,
                  prepared_input_to_model_for_generate__main__: torch.Tensor | None = None,
@@ -168,3 +175,6 @@ class ModelParser:
                     gotten_output_from_model_for_generate__main__)
 
         return coding
+
+    def get_header_code(self, define_name="model"):
+        return self.c_language_section.get_header_code(define_name)

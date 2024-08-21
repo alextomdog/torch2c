@@ -1,6 +1,5 @@
-from modelParser import ModelParser
+from modelParser import generate_file_dnn_checkpoint
 from torch import nn
-import torch
 
 
 class DNN(nn.Module):
@@ -36,16 +35,8 @@ dnn_model = DNN()
 batch_size = 1
 input_size = 10
 
-input_ = torch.randn(batch_size, input_size)
-output = dnn_model(input_)
-print(output)
-
-
-model_parser = ModelParser(
-    forward_variable_name="result", c_language_filepath="./functions.c")
-
-model_parser.config_single_deep_neral_network(batch_size, input_size)
-
-model_parser.parse_network(dnn_model)
-
-model_parser.save_code("test_dnn1.c", input_, output)
+generate_file_dnn_checkpoint(
+    batch_size,
+    input_size,
+    dnn_model,
+)

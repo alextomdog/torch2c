@@ -14,3 +14,4 @@ class CTyping:
     int_t = "int"
     bool_t = "bool"
     float_pointer_t = "float*"
+    void_t = "void"

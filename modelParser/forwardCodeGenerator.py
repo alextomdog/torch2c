@@ -251,7 +251,7 @@ class ForwardCodeGenerator:
             return f"for (int i = 0; i < {length}; i++) {{ {variable_to}[i] = {variable_from}[i]; }}\n"
 
         prefix = ""
-        prefix += "float* forward(float input[], float output[]){\n"
+        prefix += "void forward(float input[], float output[]){\n"
         prefix += f"\tfloat* {self.name_forward_variable_input}=(float*)malloc(sizeof(float)*{self.original_input_size * self.batch_size});\n"
         prefix += memory_copy("input", self.name_forward_variable_input,
                               self.original_input_size * self.batch_size)

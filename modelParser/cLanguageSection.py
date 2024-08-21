@@ -14,6 +14,7 @@ class CLanguageSection:
         self.c_language_file_path = c_language_file_path
 
         self.coding = ""
+        self.header_coding = ""
 
         self.cache_c_functions = []
 
@@ -121,8 +122,29 @@ class CLanguageSection:
         # 将函数名字添加到缓存列表中
         self.cache_c_functions.append(searching_function_name)
 
+        # 找到函数的定义名称，然后进行提取
+        define_function_name = ""
+        index = 0
+        while True:
+            if searching_result_function[index] == "{":
+                break
+            define_function_name += searching_result_function[index]
+            index += 1
+
+        # 去掉函数名字后面的\n
+        define_function_name = define_function_name.rstrip()
+
         # 将函数添加到coding中
         self.coding += searching_result_function + "\n"
 
+        # 将函数添加到header_coding中
+        self.header_coding += define_function_name + ";" + "\n"
+
     def get_code(self) -> str:
         return self.coding
+
+    def get_header_code(self, define_name: str) -> str:
+        prefix = "#ifndef " + define_name + "\n#define " + define_name + "\n"
+        suffix = "#endif\n"
+        self.header_coding += "void forward(float input[], float output[]);\n"
+        return prefix + self.header_coding + suffix
