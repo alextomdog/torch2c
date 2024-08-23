@@ -140,6 +140,10 @@ class WeightsCodeGenerator:
         self.__add_head_line(f"Relu: {name}")
         self.__add_comment(f"Relu for layer: {name}")
 
+    def leakyReLU(self, name, layer):
+        self.__add_head_line(f"LeakyRelu: {name}")
+        self.__add_comment(f"LeakyRelu for layer: {name}")
+
     def softMax(self, name):
         self.__add_head_line(f"SoftMax: {name}")
         self.__add_comment(f"SoftMax for layer: {name}")

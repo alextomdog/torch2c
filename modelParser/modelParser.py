@@ -132,6 +132,13 @@ class ModelParser:
                     self.c_language_section.adding_callback_function_from_name(
                         CFunctionsName.tanh)
 
+            elif isinstance(layer, nn.LeakyReLU):
+                self.weights_code_generator.leakyReLU(name, layer)
+                self.forward_code_generator.leakyReLU(name, layer)
+                if self.c_language_section is not None:
+                    self.c_language_section.adding_callback_function_from_name(
+                        CFunctionsName.LeakyReLU)
+
         return True
 
     def save_code(self,

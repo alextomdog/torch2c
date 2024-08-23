@@ -63,6 +63,24 @@ void Tanh(int batch_size, int elements_length, float *input)
     }
 }
 
+void LeakyReLU(int batch_size, int elements_length, float *input, float alpha)
+{
+    // 遍历输入数组的每个元素
+    for (int i = 0; i < batch_size; i++)
+    {
+        for (int j = 0; j < elements_length; j++)
+        {
+            int index = i * elements_length + j;
+            // 计算 LeakyReLU 值并更新输入数组
+            if (input[index] < 0)
+            {
+                input[index] = alpha * input[index];
+            }
+            // 否则保持原值
+        }
+    }
+}
+
 float *Linear(int batch_size, int input_size, int output_size, float *input, float *weight_transposed, float *bias)
 {
     int i, j, k;

@@ -11,6 +11,7 @@ class CFunctionsName:
     batchNorm1d = "BatchNorm1d"
     maxPool1d = "MaxPool1D"
     tanh = "Tanh"
+    LeakyReLU = "LeakyReLU"
 
     # not to be used
     flatten = "Flatten"
@@ -22,6 +23,11 @@ class CFunctionsName:
 
 
 class CFunctions:
+
+    @staticmethod
+    def leakyReLU(batch_size, total_elements_per_batch, input_variable_name, alpha):
+        # void LeakyReLU(int batch_size, int elements_length, float *input, float alpha)
+        return f"{CFunctionsName.LeakyReLU}({batch_size},{total_elements_per_batch},{input_variable_name},{alpha})"
 
     @staticmethod
     def relu(batch_size, total_elements_per_batch, input_variable_name):
