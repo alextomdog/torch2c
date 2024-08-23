@@ -123,8 +123,14 @@ class ModelParser:
                 self.forward_code_generator.maxPool1d(name, layer)
                 if self.c_language_section is not None:
                     self.c_language_section.adding_callback_function_from_name(
-                        CFunctionsName.maxPool1d
-                    )
+                        CFunctionsName.maxPool1d)
+
+            elif isinstance(layer, nn.Tanh):
+                self.weights_code_generator.tanh(name)
+                self.forward_code_generator.tanh(name)
+                if self.c_language_section is not None:
+                    self.c_language_section.adding_callback_function_from_name(
+                        CFunctionsName.tanh)
 
         return True
 

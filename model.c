@@ -4,57 +4,144 @@
 #include <stdbool.h>
 #include <float.h>
 
-// ================== BatchNorm1d: batch_normal_1d ================== //
-// BatchNorm1d for layer: batch_normal_1d;
-// epsilon for BatchNorm1d: 1e-05;
-float batch_normal_1d_batch_normal1d_epsilon = 1e-05;
-// gamma for BatchNorm1d: 5;
-float batch_normal_1d_batch_normal1d_gamma[5] = {1.00000000, 1.00000000, 1.00000000, 1.00000000, 1.00000000};
-// beta for BatchNorm1d: 5;
-float batch_normal_1d_batch_normal1d_beta[5] = {0.00000000, 0.00000000, 0.00000000, 0.00000000, 0.00000000};
-// running_mean for BatchNorm1d: 5;
-float batch_normal_1d_batch_normal1d_running_mean[5] = {0.00000000, 0.00000000, 0.00000000, 0.00000000, 0.00000000};
-// running_var for BatchNorm1d: 5;
-float batch_normal_1d_batch_normal1d_running_var[5] = {1.00000000, 1.00000000, 1.00000000, 1.00000000, 1.00000000};
+// ================== Layer: fc1 ================== //
+// Transposed weights for layer: fc1 @5x10;
+float fc1_weight_transposed[50] = {-0.14270020, -0.34204102, 0.01684570, -0.30566406, 0.25024414, 0.12451172, 0.32714844, 0.05203247, -0.03381348, 0.31054688, -0.43212891, -0.42041016, 0.02876282, -0.22094727, 0.24450684, 0.35595703, -0.23193359, -0.02989197, 0.36157227, -0.29882812, 0.26562500, 0.34008789, -0.03494263, -0.01828003, 0.21655273, 0.43090820, 0.40722656, 0.12683105, 0.44555664, -0.30004883, 0.02409363, -0.02835083, 0.41210938, -0.16088867, 0.37524414, 0.28027344, 0.30102539, -0.30395508, -0.30541992, 0.44531250, -0.43017578, -0.22045898, -0.30151367, -0.08441162, 0.08575439, 0.30517578, 0.15637207, 0.03424072, 0.40185547, -0.43945312};
+// Biases for layer: fc1 @10;
+float fc1_bias_transposed[10] = {-0.15771484, 0.23095703, 0.20397949, 0.23913574, -0.21997070, 0.14514160, 0.29077148, 0.13647461, 0.38916016, 0.24072266};
 
-void BatchNorm1d(
-    int batch_size,      // 批量大小
-    int elements_length, // 特征的数量（每个样本的特征数量）
-    float *input,        // 输入数组，大小为 batch_size * elements_length
-    float epsilon,       // 一个很小的数值，防止除零错误
-    float *gamma,        // 缩放参数（即PyTorch中的weight），大小为elements_length
-    float *beta,         // 平移参数（即PyTorch中的bias），大小为elements_length
-    float *running_mean, // 运行中的均值，大小为elements_length
-    float *running_var   // 运行中的方差，大小为elements_length
-)
+// ================== Relu: relu1 ================== //
+// Relu for layer: relu1;
+
+// ================== Layer: fc2 ================== //
+// Transposed weights for layer: fc2 @10x20;
+float fc2_weight_transposed[200] = {0.12634277, -0.00022364, -0.20776367, -0.27856445, 0.10717773, 0.22961426, -0.04901123, -0.27343750, 0.07684326, 0.09008789, 0.30957031, 0.31127930, 0.11804199, -0.12384033, -0.29858398, -0.15661621, -0.30444336, -0.07720947, -0.28784180, 0.14514160, 0.07482910, 0.06549072, 0.23547363, 0.26416016, -0.11645508, 0.18945312, 0.21362305, 0.31469727, -0.22290039, -0.14294434, 0.28930664, 0.24658203, -0.17431641, -0.10949707, 0.27685547, -0.29638672, 0.10351562, -0.18969727, 0.14855957, 0.29028320, -0.24731445, -0.29785156, 0.29101562, 0.05661011, 0.19738770, 0.17382812, -0.19885254, -0.23620605, -0.19091797, -0.30932617, -0.23986816, -0.23034668, -0.03717041, 0.20300293, 0.09582520, 0.27758789, 0.19506836, -0.29663086, -0.00250053, 0.10968018, -0.25097656, 0.27783203, 0.09088135, 0.17041016, -0.17456055, 0.10101318, 0.31152344, -0.09234619, -0.12231445, 0.09320068, 0.27050781, 0.14440918, -0.20532227, 0.08673096, 0.28002930, -0.08660889, 0.08068848, -0.08203125, 0.25927734, 0.09613037, 0.30395508, -0.22961426, -0.25439453, -0.09790039, -0.09173584, 0.17639160, 0.25732422, 0.14794922, -0.25292969, -0.11273193, 0.07543945, -0.20837402, -0.09698486, 0.24865723, 0.06161499, 0.08734131, -0.23779297, -0.15087891, 0.14819336, -0.17553711, -0.23681641, 0.27099609, -0.09881592, -0.00663376, -0.14025879, 0.05752563, 0.17395020, 0.00096273, -0.10644531, -0.02409363, -0.14123535, 0.12438965, -0.05041504, -0.09594727, -0.23181152, -0.15100098, 0.09967041, 0.27880859, -0.24060059, -0.22888184, -0.23779297, -0.30200195, 0.15539551, -0.21643066, -0.23083496, -0.12988281, -0.06756592, -0.10375977, 0.29809570, -0.16845703, -0.27685547, 0.18359375, -0.21850586, -0.10430908, -0.20007324, 0.19995117, 0.28564453, -0.18481445, -0.09405518, -0.05572510, -0.09936523, 0.07250977, 0.26660156, 0.19604492, -0.13159180, 0.06701660, 0.18713379, -0.14270020, -0.00777817, 0.07366943, -0.29882812, 0.26293945, -0.18310547, 0.09332275, 0.19506836, -0.27319336, 0.21362305, 0.00894928, 0.25439453, 0.23608398, -0.22290039, -0.29980469, 0.10748291, 0.08441162, -0.19470215, -0.15246582, -0.07153320, 0.06475830, -0.12756348, -0.24707031, -0.08959961, 0.13769531, 0.10235596, 0.27197266, -0.17419434, 0.01155090, 0.30297852, 0.15026855, -0.28100586, 0.00590897, 0.11590576, -0.07696533, -0.28515625, -0.12066650, -0.09228516, 0.23034668, -0.27954102, -0.09490967, -0.13793945, 0.31274414, -0.18151855, -0.22998047, -0.18530273, 0.21691895, 0.26196289, 0.18164062, -0.14575195, 0.25805664, 0.31176758, -0.29199219};
+// Biases for layer: fc2 @20;
+float fc2_bias_transposed[20] = {0.26513672, -0.17968750, 0.16418457, -0.02082825, -0.06671143, -0.17114258, 0.07867432, -0.02954102, 0.07666016, -0.09820557, -0.31176758, -0.11254883, -0.01232910, 0.24377441, -0.08447266, -0.17590332, 0.00361633, -0.26782227, -0.10028076, 0.10034180};
+
+// ================== Tanh: tanh ================== //
+// Tanh for layer: tanh;
+
+// ================== Layer: fc5 ================== //
+// Transposed weights for layer: fc5 @20x3;
+float fc5_weight_transposed[60] = {-0.13403320, 0.06347656, 0.16809082, -0.08660889, -0.08306885, 0.19018555, -0.19885254, -0.07092285, 0.08105469, 0.19030762, 0.12866211, -0.16589355, 0.13122559, -0.01525116, 0.21777344, -0.16223145, 0.09295654, -0.09246826, -0.14160156, -0.13574219, 0.16088867, -0.18554688, -0.01989746, -0.07806396, 0.02597046, -0.11682129, 0.11193848, 0.07482910, 0.20556641, 0.09478760, 0.09179688, -0.00258827, -0.21105957, 0.12805176, -0.07995605, 0.11993408, 0.19482422, 0.02922058, 0.15527344, 0.05313110, 0.03518677, -0.17199707, 0.17736816, -0.08636475, 0.12976074, -0.10870361, -0.19567871, -0.01974487, -0.06158447, 0.04730225, 0.08331299, -0.08374023, 0.09484863, 0.09356689, -0.07611084, 0.13110352, -0.09973145, -0.03274536, -0.20910645, -0.01821899};
+// Biases for layer: fc5 @3;
+float fc5_bias_transposed[3] = {-0.13488770, -0.21936035, -0.07611084};
+
+// ================== SoftMax: softmax2 ================== //
+// SoftMax for layer: softmax2;
+
+float *Linear(int batch_size, int input_size, int output_size, float *input, float *weight_transposed, float *bias)
 {
-    // 对每个特征进行标准化
-    for (int i = 0; i < elements_length; ++i)
+    int i, j, k;
+
+    // 为结果矩阵分配内存
+    float *result = (float *)malloc(batch_size * output_size * sizeof(float));
+    if (result == NULL)
     {
-        for (int j = 0; j < batch_size; ++j)
+        printf("Error: Memory allocation failed.\n");
+        return NULL;
+    }
+
+    // 初始化并执行矩阵乘法
+    for (i = 0; i < batch_size; i++)
+    {
+        for (j = 0; j < output_size; j++)
         {
-            int idx = j * elements_length + i;
-            // 1. 标准化输入
-            float normalized = (input[idx] - running_mean[i]) / sqrtf(running_var[i] + epsilon);
-            // 2. 应用gamma和beta
-            input[idx] = gamma[i] * normalized + beta[i];
+            result[i * output_size + j] = 0; // 初始化元素为0
+            for (k = 0; k < input_size; k++)
+            {
+                result[i * output_size + j] += input[i * input_size + k] * weight_transposed[k * output_size + j];
+            }
+            result[i * output_size + j] += bias[j]; // 将偏置项加到结果中
+        }
+    }
+
+    // 返回结果矩阵
+    return result;
+}
+void Relu(int batch_size, int elements_length, float *input)
+{
+    for (int i = 0; i < batch_size * elements_length; i++)
+    {
+        if (input[i] < 0)
+        {
+            input[i] = 0;
+        }
+    }
+}
+void Tanh(int batch_size, int elements_length, float *input)
+{
+    // 遍历输入数组的每个元素
+    for (int i = 0; i < batch_size; i++)
+    {
+        for (int j = 0; j < elements_length; j++)
+        {
+            int index = i * elements_length + j;
+            // 计算 tanh 值并更新输入数组
+            input[index] = tanh(input[index]);
+        }
+    }
+}
+void SoftMax(int batch_size, int elements_length, float *input)
+{
+    float max_value, sum_exp;
+
+    // 逐行计算softmax
+    for (int i = 0; i < batch_size; i++)
+    {
+        // 找到该行的最大值
+        max_value = input[i * elements_length];
+        for (int j = 1; j < elements_length; j++)
+        {
+            if (input[i * elements_length + j] > max_value)
+            {
+                max_value = input[i * elements_length + j];
+            }
+        }
+
+        // 计算该行的指数和
+        sum_exp = 0.0f;
+        for (int j = 0; j < elements_length; j++)
+        {
+            input[i * elements_length + j] = exp(input[i * elements_length + j] - max_value);
+            sum_exp += input[i * elements_length + j];
+        }
+
+        // 归一化得到softmax输出
+        for (int j = 0; j < elements_length; j++)
+        {
+            input[i * elements_length + j] /= sum_exp;
         }
     }
 }
 
 void forward(float input[], float output[]){
-	float* result_0=(float*)malloc(sizeof(float)*5);
-for (int i = 0; i < 5; i++) { result_0[i] = input[i]; }
-// batch_normal_1d_layer
-BatchNorm1d(1,5,result_0,batch_normal_1d_batch_normal1d_epsilon,batch_normal_1d_batch_normal1d_gamma,batch_normal_1d_batch_normal1d_beta, batch_normal_1d_batch_normal1d_running_mean,batch_normal_1d_batch_normal1d_running_var);
-for (int i = 0; i < 5; i++) { output[i] = result_0[i]; }
-	free(result_0);
+	float* result_0=(float*)malloc(sizeof(float)*10);
+for (int i = 0; i < 10; i++) { result_0[i] = input[i]; }
+// fc1_layer
+float* result_1 = Linear(2,5,10,result_0,fc1_weight_transposed,fc1_bias_transposed);
+free(result_0);
+// relu1_relu
+Relu(2,10,result_1);
+// fc2_layer
+float* result_2 = Linear(2,10,20,result_1,fc2_weight_transposed,fc2_bias_transposed);
+free(result_1);
+// tanh_layer
+Tanh(2,20,result_2);
+// fc5_layer
+float* result_3 = Linear(2,20,3,result_2,fc5_weight_transposed,fc5_bias_transposed);
+free(result_2);
+// softmax2_layer
+SoftMax(2,3,result_3);
+for (int i = 0; i < 6; i++) { output[i] = result_3[i]; }
+	free(result_3);
 }
 int main(){
-float input[5] = { 0.6445587277412415,-0.635455846786499,0.18922942876815796,0.8661662340164185,-0.7497795224189758 };
-float output[5];
+float input[10] = { -1.6203070878982544,0.49399200081825256,1.6230746507644653,-1.3058520555496216,-0.8226962685585022,-0.5650057792663574,-0.6855044960975647,1.1648881435394287,0.1482577621936798,0.05704134702682495 };
+float output[6];
 forward(input, output);
-for (int i = 0; i < 5; i++){ printf("%f  ", output[i]); 
+for (int i = 0; i < 6; i++){ printf("%f  ", output[i]); 
  }
 return 0;
 }

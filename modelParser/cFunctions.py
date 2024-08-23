@@ -10,6 +10,7 @@ class CFunctionsName:
     linear = "Linear"
     batchNorm1d = "BatchNorm1d"
     maxPool1d = "MaxPool1D"
+    tanh = "Tanh"
 
     # not to be used
     flatten = "Flatten"
@@ -25,6 +26,11 @@ class CFunctions:
     @staticmethod
     def relu(batch_size, total_elements_per_batch, input_variable_name):
         return f"{CFunctionsName.relu}({batch_size},{total_elements_per_batch},{input_variable_name})"
+
+    @staticmethod
+    def tanh(batch_size, total_elements_per_batch, input_variable_name):
+        # void tanh(int batch_size, int elements_length, float *input)
+        return f"{CFunctionsName.tanh}({batch_size},{total_elements_per_batch},{input_variable_name})"
 
     @staticmethod
     def softmax(batch_size, total_elements_per_batch, input_variable_name):

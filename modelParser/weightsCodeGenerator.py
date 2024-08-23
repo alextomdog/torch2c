@@ -148,5 +148,9 @@ class WeightsCodeGenerator:
         self.__add_head_line(f"MaxPool1d: {name}")
         self.__add_comment(f"MaxPool1d for layer: {name}")
 
+    def tanh(self, name):
+        self.__add_head_line(f"Tanh: {name}")
+        self.__add_comment(f"Tanh for layer: {name}")
+
     def get_code(self):
         return self.coding
