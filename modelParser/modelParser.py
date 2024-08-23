@@ -139,6 +139,13 @@ class ModelParser:
                     self.c_language_section.adding_callback_function_from_name(
                         CFunctionsName.LeakyReLU)
 
+            elif isinstance(layer, nn.Sigmoid):
+                self.weights_code_generator.sigmoid(name)
+                self.forward_code_generator.sigmoid(name)
+                if self.c_language_section is not None:
+                    self.c_language_section.adding_callback_function_from_name(
+                        CFunctionsName.sigmoid)
+
         return True
 
     def save_code(self,

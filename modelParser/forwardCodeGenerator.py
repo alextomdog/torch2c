@@ -179,6 +179,17 @@ class ForwardCodeGenerator:
             self.batch_size, self.input_size, name_forward)
         )
 
+    def sigmoid(self, name):
+        self.__check_configuration()
+
+        name_forward = NameGenerator.name_forward_variable(
+            self.forward_variable_name_tag, False
+        )
+        self.__add_comment(NameGenerator.name_layer(name))
+        self.__add_coding(CFunctions.sigmoid(
+            self.batch_size, self.input_size, name_forward)
+        )
+
     def batchNorm1d(self, name, layer: nn.BatchNorm1d):
         name_forward = NameGenerator.name_forward_variable(
             self.forward_variable_name_tag, False

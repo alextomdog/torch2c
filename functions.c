@@ -49,6 +49,20 @@ void Relu(int batch_size, int elements_length, float *input)
     }
 }
 
+void sigmoid(int batch_size, int elements_length, float *input)
+{
+    // 遍历输入数组的每个元素
+    for (int i = 0; i < batch_size; i++)
+    {
+        for (int j = 0; j < elements_length; j++)
+        {
+            int index = i * elements_length + j;
+            // 计算 Sigmoid 值并更新输入数组
+            input[index] = 1.0 / (1.0 + exp(-input[index]));
+        }
+    }
+}
+
 void Tanh(int batch_size, int elements_length, float *input)
 {
     // 遍历输入数组的每个元素

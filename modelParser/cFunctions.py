@@ -12,6 +12,7 @@ class CFunctionsName:
     maxPool1d = "MaxPool1D"
     tanh = "Tanh"
     LeakyReLU = "LeakyReLU"
+    sigmoid = "sigmoid"
 
     # not to be used
     flatten = "Flatten"
@@ -32,6 +33,11 @@ class CFunctions:
     @staticmethod
     def relu(batch_size, total_elements_per_batch, input_variable_name):
         return f"{CFunctionsName.relu}({batch_size},{total_elements_per_batch},{input_variable_name})"
+
+    @staticmethod
+    def sigmoid(batch_size, total_elements_per_batch, input_variable_name):
+        # void sigmoid(int batch_size, int elements_length, float *input)
+        return f"{CFunctionsName.sigmoid}({batch_size},{total_elements_per_batch},{input_variable_name})"
 
     @staticmethod
     def tanh(batch_size, total_elements_per_batch, input_variable_name):
